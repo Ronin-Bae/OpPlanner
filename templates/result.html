@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<table border = 1>
+   {% for key, value in result.items() %}
+      <tr>
+         <th> {{ key }} </th>
+         <td> {{ value }} </td>
+      </tr>
+   {% endfor %}
+</table>
+{% endblock %}
