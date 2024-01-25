@@ -11,8 +11,8 @@ from flask import request
 app = Flask(__name__)
 
 @app.route('/')
-def home():
-   return render_template('home.html')
+def index():
+   return render_template('index.html')
 
 @app.route('/add')
 def add():
@@ -22,11 +22,7 @@ def add():
 def program(name):
 
     db = sqlite3.connect("database.db") 
-    print(name)
-    #name = str(name)[2:len(str(name))-3]
-    print(name)
     data = list(getProgramInfoByName(db, name))[0]
-    print(data)
     id = data[0]
 
     if request.method == 'POST':
@@ -35,9 +31,8 @@ def program(name):
         c = request.form.get("Comment")
         n = str(n)
         c = str(c)
-        print(n + c)
         addComment(db,[id,n,c])
-        print("comment added")
+
         
     
     comms = list(getProgramComments(db, id))
@@ -66,7 +61,6 @@ def result():
         g = str(g)
         f = str(f)
         d = str(d)
-        print(p+g+f+d)
         db = sqlite3.connect("database.db")
         addProgram(db, [p,g,f,d])
         db.close() 
