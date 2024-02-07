@@ -1,5 +1,10 @@
 import sqlite3
 import csv
+from os import path
+
+ROOT = path.dirname(path.realpath("database.db"))
+
+print(ROOT)
 
 def createDatabase():
     con.execute('''CREATE TABLE programs(
@@ -154,7 +159,9 @@ def getProgramInfo(conn):
     return rows
 
 
-db = sqlite3.connect('database.db')
+
+
+db = sqlite3.connect(path.join(ROOT, "database.db"))
 con = db.cursor()
 
 #createDatabase()
@@ -172,10 +179,6 @@ con = db.cursor()
 #print(getProgramComments(db, 1))
 
 #print(getProgramNames(db))
-data = getProgramInfo(db)
-for elem in data:
-    print(elem)
-print("hi")
 (updateCommentCSVTable())
 (updateProgramCSVTable())
 
