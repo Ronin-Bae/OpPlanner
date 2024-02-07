@@ -8,7 +8,23 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
+from os import path
+
+ROOT = path.dirname(path.realpath("database.db"))
+
 app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('./myproject')
+        origin = repo.remotes.origin
+        repo.create_head('master', 
+    origin.refs.master).set_tracking_branch(origin.refs.master).checkout()
+        origin.pull()
+        return '', 200
+    else:
+        return '', 400
 
 @app.route('/')
 def index():
@@ -21,12 +37,11 @@ def add():
 @app.route('/program<name>',methods=['POST','GET'])
 def program(name):
 
-    db = sqlite3.connect("database.db") 
+    db = sqlite3.connect(path.join(ROOT, "database.db"))
     data = list(getProgramInfoByName(db, name))[0]
     id = data[0]
 
     if request.method == 'POST':
-        result = request.form
         n = request.form.get("Name")
         c = request.form.get("Comment")
         n = str(n)
@@ -43,10 +58,24 @@ def program(name):
     db.close() 
     return render_template('program.html', data=data, comms=comments)
 
-@app.route('/catalog')
+@app.route('/catalog',methods=['POST','GET'])
 def catalog():
-    db = sqlite3.connect("database.db")
-    data = getProgramInfo(db)
+    db = sqlite3.connect(path.join(ROOT, "database.db"))
+    if request.method=='POST':
+        grade=request.form.get("Grade")
+        field=request.form.get("Field").upper()
+        if(grade == "" and field == ""):
+            data = getProgramData(db)
+        else:
+            total = getProgramInfoByGradeAndField(db,[grade, field])
+            data = []
+            for x in total:
+                print(x)
+                data.append(x[1:])
+
+    else:
+        data = getProgramData(db)
+    print(data)
     return render_template('catalog.html', data=data)
 
 @app.route('/result',methods = ['POST', 'GET'])
@@ -57,11 +86,11 @@ def result():
         g = request.form.get("Grade")
         f = request.form.get("Field")
         d = request.form.get("Description")
-        p = str(p)
-        g = str(g)
-        f = str(f)
+        p = str(p).capitalize()
+        g = str(g).upper()
+        f = str(f).upper()
         d = str(d)
-        db = sqlite3.connect("database.db")
+        db = sqlite3.connect(path.join(ROOT, "database.db"))
         addProgram(db, [p,g,f,d])
         db.close() 
 

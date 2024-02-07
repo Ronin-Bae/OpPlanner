@@ -4,8 +4,6 @@ from os import path
 
 ROOT = path.dirname(path.realpath("database.db"))
 
-print(ROOT)
-
 def createDatabase():
     con.execute('''CREATE TABLE programs(
             id INTEGER NOT NULL PRIMARY KEY,
@@ -107,7 +105,7 @@ def getProgramInfoByID(conn, priority):
 def getProgramInfoByName(conn, priority):
 
     cur = conn.cursor()
-    cur.execute("SELECT * FROM programs WHERE name=?", (priority,))
+    cur.execute("SELECT * FROM programs WHERE name=? ORDER BY name", (priority,))
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -116,7 +114,7 @@ def getProgramInfoByName(conn, priority):
 def getProgramInfoByGrade(conn, priority):
 
     cur = conn.cursor()
-    cur.execute("SELECT * FROM programs WHERE instr(grades, ?) > 0", (priority,))
+    cur.execute("SELECT * FROM programs WHERE lower(instr(grades, ?)) > 0", (priority,))
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -126,6 +124,15 @@ def getProgramInfoByField(conn, priority):
 
     cur = conn.cursor()
     cur.execute("SELECT * FROM programs WHERE instr(field, ?) > 0", (priority,))
+    rows = cur.fetchall()
+    if(rows == None):
+        return "invalid input"
+    return rows
+
+def getProgramInfoByGradeAndField(conn, priority):
+
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM programs WHERE instr(grades, ?) > 0 AND instr(field, ?) > 0 ORDER BY name", (priority[0], priority[1],))
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -158,12 +165,21 @@ def getProgramInfo(conn):
         return "invalid input"
     return rows
 
+def getProgramData(conn):
+
+    cur = conn.cursor()
+    cur.execute("SELECT name, grades, field, desc FROM programs ORDER BY name")
+    rows = cur.fetchall()
+    if(rows == None):
+        return "invalid input"
+    return rows
 
 
 
 db = sqlite3.connect(path.join(ROOT, "database.db"))
 con = db.cursor()
-
+print(getProgramInfoByGradeAndField(db, ["11", "Stem"]))
+print("hi")
 #createDatabase()
 #deleteProgramById(db,1)
 

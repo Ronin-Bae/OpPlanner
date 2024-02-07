@@ -1,34 +1,36 @@
-.message {
-    font-weight: 600;
-    color: blue;
+* {
+    color: #b6b6b6
 }
 
-.navbar {
-    background-color: lightslategray;
-    font-size: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    color: white;
-    padding: 8px 5px 8px 5px;
-    margin-bottom: 10px;
+a.program-link {
+    color: #b6b6b6;
+    display: block
 }
 
-.navbar a {
+a.program-link:link {
+    color: #b6b6b6;
     text-decoration: none;
-    color: inherit;
 }
 
-.navbar-brand {
-    font-size: 1.2em;
-    font-weight: 600;
+a.program-link:visited {
+    color: #b6b6b6;
+    text-decoration: none;
 }
 
-.navbar-item {
-    font-variant: small-caps;
-    margin-left: 10px;
-    margin-right: 10px;
+a.program-link:hover {
+    color: #b6b6b6;
+    text-decoration: none;
 }
 
-.body-content {
-    padding: 5px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+a.program-link:active {
+    color: #b6b6b6;
+    text-decoration: none;
+}
+
+tr.program-row:hover {
+    background: grey;
+}
+
+input {
+    color: black;
 }
