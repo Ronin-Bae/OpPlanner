@@ -4,21 +4,35 @@ from os import path
 
 ROOT = path.dirname(path.realpath("database.db"))
 
-def createDatabase():
+def createDatabase(conn):
+    con = conn.cursor()
     con.execute('''CREATE TABLE programs(
             id INTEGER NOT NULL PRIMARY KEY,
-            name TEXT,
-            grades TEXT,
-            field TEXT,
-            desc TEXT
+            name TEXT NOT NULL UNIQUE,
+            grades TEXT NOT NULL,
+            type TEXT NOT NULL,
+            field TEXT NOT NULL,
+            desc TEXT NOT NULL
     );''')
 
 
     con.execute('''CREATE TABLE comments(
-                id INTEGER,
-                name TEXT,
-                content TEXT
+                id INTEGER NOT NULL,
+                name TEXT NOT NULL,
+                content TEXT NOT NULL
         );''')
+
+def deleteProgramTable(conn):
+    sql = 'DROP TABLE programs;'
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    
+def deleteCommentTable(conn):
+    sql = 'DROP TABLE comments;'
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
 
 def deleteAllPrograms(conn):
 
@@ -57,7 +71,7 @@ def updateProgramCSVTable():
 
     with open('programTable.csv', 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['id', 'name', 'grades', 'field', 'desc'])
+        writer.writerow(['id', 'name', 'grades', 'type', 'field', 'desc'])
         writer.writerows(data)
 
 def updateCommentCSVTable():
@@ -73,8 +87,8 @@ def updateCommentCSVTable():
 
 def addProgram(conn, content):
     try:
-        sql = ''' INSERT INTO programs(name,grades,field,desc)
-                VALUES(?,?,?,?) '''
+        sql = ''' INSERT INTO programs(name,grades,type,field,desc)
+                VALUES(?,?,?,?,?) '''
         cur = conn.cursor()
         cur.execute(sql, content)
         conn.commit()
@@ -129,11 +143,13 @@ def getProgramInfoByField(conn, priority):
         return "invalid input"
     return rows
 
-def getProgramInfoByGradeAndField(conn, priority):
+def getProgramInfoBySearch(conn, priority):
 
     cur = conn.cursor()
-    cur.execute("SELECT * FROM programs WHERE instr(grades, ?) > 0 AND instr(field, ?) > 0 ORDER BY name", (priority[0], priority[1],))
+    cur.execute("SELECT * FROM programs WHERE instr(grades, ?) > 0 AND type = ? AND instr(field, ?) > 0 ORDER BY name", (priority[0], priority[1], priority[2],))
     rows = cur.fetchall()
+    print(priority)
+    print(rows)
     if(rows == None):
         return "invalid input"
     return rows
@@ -168,7 +184,7 @@ def getProgramInfo(conn):
 def getProgramData(conn):
 
     cur = conn.cursor()
-    cur.execute("SELECT name, grades, field, desc FROM programs ORDER BY name")
+    cur.execute("SELECT name, grades, type, field, desc FROM programs ORDER BY name")
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -177,10 +193,11 @@ def getProgramData(conn):
 
 
 db = sqlite3.connect(path.join(ROOT, "database.db"))
-con = db.cursor()
-print(getProgramInfoByGradeAndField(db, ["11", "Stem"]))
-print("hi")
-#createDatabase()
+
+#deleteProgramTable(db)
+#deleteCommentTable(db)
+
+#createDatabase(db)
 #deleteProgramById(db,1)
 
 #addProgram(db, ["a","a","a","a"])
@@ -195,7 +212,7 @@ print("hi")
 #print(getProgramComments(db, 1))
 
 #print(getProgramNames(db))
-(updateCommentCSVTable())
-(updateProgramCSVTable())
+#(updateCommentCSVTable())
+#(updateProgramCSVTable())
 
 

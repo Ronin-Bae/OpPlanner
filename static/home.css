@@ -34,3 +34,7 @@ tr.program-row:hover {
 input {
     color: black;
 }
+
+select {
+    color: black;
+}

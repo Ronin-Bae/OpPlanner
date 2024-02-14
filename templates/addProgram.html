@@ -2,9 +2,18 @@
 {% block title %}Home Page{% endblock %}
 {% block content %}
 <div class="px-5 py-5">
-   <form class="text-light" action = "/result" method = "POST">
+   <form class="text-light" action = "/add" method = "POST">
       <p>Program <input class="" type = "text" name = "Program" /></p>
       <p>Grade <input type = "text" name = "Grade" /></p>
+      <p>Type <select type="text" name="Type" class="">
+
+         <option value="Class">Class</option>
+         <option value="Club">Club</option>
+         <option value="Extracurricular">Extracurricular</option>
+         <option value="Occupational">Occupational</option>
+         <option value="Competition">Competition</option>
+
+     </select></p>
       <p>Field <input type = "text" name = "Field" /></p>
       <p>Description <input type ="text" name = "Description" /></p>
       <p><input type = "submit" value = "submit" /></p>
