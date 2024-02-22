@@ -88,7 +88,6 @@ def catalog():
 
     else:
         data = getProgramData(db)
-        print(data)
     return render_template('catalog.html', data=data)
 
 @app.route('/result',methods = ['POST', 'GET'])

@@ -146,7 +146,7 @@ def getProgramInfoByField(conn, priority):
 def getProgramInfoBySearch(conn, priority):
 
     cur = conn.cursor()
-    cur.execute("SELECT * FROM programs WHERE instr(grades, ?) > 0 AND type = ? AND instr(field, ?) > 0 ORDER BY name", (priority[0], priority[1], priority[2],))
+    cur.execute("SELECT * FROM programs WHERE (grades LIKE ? OR ? = '') AND (type LIKE ? OR ? = '') AND (field LIKE ? OR ? = '') ORDER BY name", ('%'+priority[0]+'%', priority[0], priority[1], priority[1], '%'+priority[2]+'%', priority[2],))
     rows = cur.fetchall()
     print(priority)
     print(rows)
