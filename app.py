@@ -25,19 +25,22 @@ def add():
    if request.method == 'POST':
         result = request.form
         p = request.form.get("Program")
-        g = request.form.get("Grade")
+        nin = request.form.get("9")
+        ten = request.form.get("10")
+        ele = request.form.get("11")
+        twe = request.form.get("12")
         t = request.form.get("Type")
         f = request.form.get("Field")
         d = request.form.get("Description")
         p = str(p).capitalize()
-        g = str(g).upper()
+        g = str(nin)+","+str(ten)+","+str(ele)+","+str(twe)+","
+        g = g.replace("None,", "").strip(",")
         t = str(t).upper()
         f = str(f).upper()
         d = str(d)
         db = sqlite3.connect(path.join(ROOT, "database.db"))
         addProgram(db, [p,g,t,f,d])
         db.close() 
-        print(p)
         link = '/program' + p
         return redirect(link)
 

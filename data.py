@@ -4,6 +4,14 @@ from os import path
 
 ROOT = path.dirname(path.realpath("database.db"))
 
+def importCSV(conn, csvFile):
+    cursor = conn.cursor()
+    file = open(csvFile)
+    contents = csv.reader(file)
+    insert_records = "INSERT INTO programs (name, grades, type, field, desc) VALUES(?, ?, ?, ?, ?)"
+    cursor.executemany(insert_records, contents)
+    conn.commit()
+
 def createDatabase(conn):
     con = conn.cursor()
     con.execute('''CREATE TABLE programs(
@@ -191,8 +199,10 @@ def getProgramData(conn):
     return rows
 
 
-
 db = sqlite3.connect(path.join(ROOT, "database.db"))
+
+#deleteAllPrograms(db)
+#importCSV(db,'csvData.csv')
 
 #deleteProgramTable(db)
 #deleteCommentTable(db)
