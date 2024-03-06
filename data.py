@@ -16,11 +16,11 @@ def createDatabase(conn):
     con = conn.cursor()
     con.execute('''CREATE TABLE programs(
             id INTEGER NOT NULL PRIMARY KEY,
-            name TEXT NOT NULL UNIQUE,
+            name TEXT NOT NULL,
             grades TEXT NOT NULL,
             type TEXT NOT NULL,
             field TEXT NOT NULL,
-            desc TEXT NOT NULL
+            desc TEXT
     );''')
 
 
@@ -154,7 +154,7 @@ def getProgramInfoByField(conn, priority):
 def getProgramInfoBySearch(conn, priority):
 
     cur = conn.cursor()
-    cur.execute("SELECT * FROM programs WHERE (grades LIKE ? OR ? = '') AND (type LIKE ? OR ? = '') AND (field LIKE ? OR ? = '') ORDER BY name", ('%'+priority[0]+'%', priority[0], priority[1], priority[1], '%'+priority[2]+'%', priority[2],))
+    cur.execute("SELECT * FROM programs WHERE (grades LIKE ? OR ? = '') AND (type LIKE ? OR ? = '') AND (field LIKE ? OR ? = '') ORDER BY length(grades) ASC, name", ('%'+priority[0]+'%', priority[0], priority[1], priority[1], '%'+priority[2]+'%', priority[2],))
     rows = cur.fetchall()
     print(priority)
     print(rows)
@@ -192,7 +192,7 @@ def getProgramInfo(conn):
 def getProgramData(conn):
 
     cur = conn.cursor()
-    cur.execute("SELECT name, grades, type, field, desc FROM programs ORDER BY name")
+    cur.execute("SELECT name, grades, type, field, substr(desc,0,100) FROM programs ORDER BY name")
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -205,7 +205,7 @@ db = sqlite3.connect(path.join(ROOT, "database.db"))
 #importCSV(db,'csvData.csv')
 
 #deleteProgramTable(db)
-#deleteCommentTable(db)
+#eleteCommentTable(db)
 
 #createDatabase(db)
 #deleteProgramById(db,1)
