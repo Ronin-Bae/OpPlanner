@@ -1,40 +1,66 @@
 * {
-    color: #b6b6b6
+    color: #121e26;
+}
+
+body{
+    background-color: #141f26;
+}
+
+.navbar{
+    background-color: #283635;
+}
+
+.small-text{
+    color: #9d6556
+}
+
+table, th, td, tr{
+    border: 1px solid #121e26;
+    border-collapse: collapse;
+}
+
+tbody{
+    margin-top: 0px;
 }
 
 a.program-link {
-    color: #b6b6b6;
+    color: #d2c0b2;
     display: block
 }
 
 a.program-link:link {
-    color: #b6b6b6;
+    color: #d2c0b2;
     text-decoration: none;
 }
 
 a.program-link:visited {
-    color: #b6b6b6;
+    color: #d2c0b2;
     text-decoration: none;
 }
 
 a.program-link:hover {
-    color: #b6b6b6;
+    color: #d2c0b2;
     text-decoration: none;
 }
 
 a.program-link:active {
-    color: #b6b6b6;
+    color: #d2c0b2;
     text-decoration: none;
 }
 
 tr.program-row:hover {
-    background: grey;
+    background: #1f313c;
 }
 
 input {
     color: black;
+    background-color: #f4efeb;
 }
 
 select {
     color: black;
+}
+
+.nav-link{
+    color: #d2c0b2;
 }

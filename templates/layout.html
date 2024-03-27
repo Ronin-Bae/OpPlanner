@@ -9,17 +9,17 @@
 
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body class="bg-dark">
-    <nav class="navbar navbar-expand-lg navbar navbar-light" style="background-color: #e3f2fd;">
-        <a class="navbar-brand " href="#">OpPlanner</a>
+<body>
+    <nav class="navbar navbar-expand-lg navbar">
+        <a class="navbar-brand small-text" href="#">OpPlanner</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-item nav-link px-3 active" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link px-3 active" href="{{ url_for('catalog') }}">Catalog</a>
-            <a class="nav-item nav-link px-3 active" href="{{ url_for('add') }}">Add A Program</a>
+            <a class="nav-item nav-link px-3 active small-text" href="{{ url_for('index') }}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link px-3 active small-text" href="{{ url_for('catalog') }}">Catalog</a>
+            <a class="nav-item nav-link px-3 active small-text" href="{{ url_for('add') }}">Add A Program</a>
             <a class="nav-item nav-link px-3 disabled" href="#">Disabled</a>
           </div>
         </div>

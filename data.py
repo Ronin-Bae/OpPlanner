@@ -12,7 +12,7 @@ def importCSV(conn, csvFile):
     cursor.executemany(insert_records, contents)
     conn.commit()
 
-def createDatabase(conn):
+def createProgramTable(conn):
     con = conn.cursor()
     con.execute('''CREATE TABLE programs(
             id INTEGER NOT NULL PRIMARY KEY,
@@ -23,12 +23,23 @@ def createDatabase(conn):
             desc TEXT
     );''')
 
-
+def createCommentTable(conn):
+    con = conn.cursor()
     con.execute('''CREATE TABLE comments(
                 id INTEGER NOT NULL,
                 name TEXT NOT NULL,
                 content TEXT NOT NULL
         );''')
+
+
+def createUserTable(conn):
+    con = conn.cursor()
+    con.execute('''CREATE TABLE user (
+                id TEXT PRIMARY KEY,
+                name TEXT NOT NULL,
+                email TEXT UNIQUE NOT NULL,
+                profile_pic TEXT NOT NULL
+                );''')
 
 def deleteProgramTable(conn):
     sql = 'DROP TABLE programs;'
@@ -115,10 +126,28 @@ def addComment(conn, content):
     except:
         return "invalid inputs"
 
+def addUser(conn,content):
+    try:
+        sql = ''' INSERT INTO user(id,name,email,profilePic)
+                VALUES(?,?,?,?) '''
+        cur = conn.cursor()
+        cur.execute(sql, content)
+        conn.commit()
+    except:
+        return "invalid inputs"
+
 def getProgramInfoByID(conn, priority):
 
     cur = conn.cursor()
     cur.execute("SELECT * FROM programs WHERE id=?", (priority,))
+    rows = cur.fetchall()
+    if(rows == None):
+        return "invalid input"
+    return rows
+
+def getUserInfoByID(conn, priority):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM user WHERE id=?", (priority,))
     rows = cur.fetchall()
     if(rows == None):
         return "invalid input"
@@ -197,6 +226,7 @@ def getProgramData(conn):
     if(rows == None):
         return "invalid input"
     return rows
+
 
 
 db = sqlite3.connect(path.join(ROOT, "database.db"))
