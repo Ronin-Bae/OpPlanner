@@ -3,29 +3,40 @@
 {% block content %}
 <div class="px-5 py-5">
    <form class="text-light" action = "/add" method = "POST">
-      <p>Program <input class="" type = "text" name = "Program" maxlength="35"/></p>
+      <p class="small-text">Program <input class="" type = "text" name = "Program" maxlength="35"/></p>
 
       <div class="row">
-         <p class="px-3">Grade</p>
-         <p class="px-2">9 <input type="checkbox" id="9" name="9" value="9"></p>
-         <p class="px-2"> 10 <input type="checkbox" id="10" name="10" value="10"></p>
-         <p class="px-2">11 <input type="checkbox" id="11" name="11" value="11"></p>
-         <p class="px-2">12 <input type="checkbox" id="12" name="12" value="12"></p>
+         <p class="px-3 small-text">Grade</p>
+         <p class="px-2 small-text">9 <input type="checkbox" id="9" name="9" value="9"></p>
+         <p class="px-2 small-text"> 10 <input type="checkbox" id="10" name="10" value="10"></p>
+         <p class="px-2 small-text">11 <input type="checkbox" id="11" name="11" value="11"></p>
+         <p class="px-2 small-text">12 <input type="checkbox" id="12" name="12" value="12"></p>
       </div>
 
       
-      <p>Type <select type="text" name="Type" class="">
+      <p class="small-text">Type <select type="text" name="Type" class="">
 
-         <option value="Class">Class</option>
-         <option value="Club">Club</option>
-         <option value="Extracurricular">Extracurricular</option>
-         <option value="Occupational">Occupational</option>
-         <option value="Competition">Competition</option>
+         <option class="small-text" value="Class">Class</option>
+         <option class="small-text" value="Club">Club</option>
+         <option class="small-text" value="Extracurricular">Extracurricular</option>
+         <option class="small-text" value="Occupational">Occupational</option>
+         <option class="small-text" value="Competition">Competition</option>
 
      </select></p>
-      <p>Field <input type = "text" name = "Field" maxlength="50"/></p>
-      <p>Description <input type ="text" name = "Description"/></p>
-      <p><input type = "submit" value = "submit" /></p>
+      <p class="small-text">Field <select type="text" name="Field" class="">
+
+         <option class="small-text" value="English">English</option>
+         <option class="small-text" value="History">History</option>
+         <option class="small-text" value="Classical and Modern Languages">Classical and Modern Languages</option>
+         <option class="small-text" value="Mathematics">Mathematics</option>
+         <option class="small-text" value="Technical">Technical</option>
+         <option class="small-text" value="Science">Science</option>
+         <option class="small-text" value="Art">Art</option>
+         <option class="small-text" value="Athletics">Athletics</option>
+         <option class="small-text" value="Community Service">Community Service</option>
+     </select></p>
+      <p class="small-text">Description <input type ="text" name = "Description"/></p>
+      <p class="small-text"><input type = "submit" value = "submit" /></p>
    </form>
 </div>
 {% endblock %}

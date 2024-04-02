@@ -6,11 +6,11 @@
       <h3> {{ name }} </h3>
 
       <table border = 1>
-         <th>Name</th>
-         <th>Grades</th>
-         <th>Type</th>
-         <th>Field</th>
-         <th>Desc</th>
+         <th class="small-text">Name</th>
+         <th class="small-text">Grades</th>
+         <th class="small-text">Type</th>
+         <th class="small-text">Field</th>
+         <th class="small-text">Desc</th>
          <tr>
          {% for value in data %}  
             <td> {{ value }} </td>
@@ -22,10 +22,10 @@
    <hr>
 
    <div>
-      <h3>Comments</h3>
+      <h3 class="small-text">Comments</h3>
 
       <table border = 1>
-         <th>Name</th>
+         <th class="small-text">Name</th>
          <th></th>
          {% for result in comms %}
          <tr>

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+
+<div class="px-5">
+    <h3>Log In</h3>
+    
+    <form role="presentation" autocomplete="off" action = "?" method = "POST">
+       <p class="small-text">User <input role="presentation" autocomplete="off" type = "text" name = "Name" /></p>
+       <p class="small-text">Password <input role="presentation" autocomplete="off" type = "text" name = "Password" /></p>
+       <p><input autocomplete="false" type = "submit" value = "submit" /></p>
+       </form>
+ </div>
+
+{% endblock %}

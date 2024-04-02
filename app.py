@@ -12,7 +12,8 @@ from flask import redirect
 from os import path
 
 ROOT = path.dirname(path.realpath("database.db"))
-
+user = "Panthers"
+passw = "Panthers"
 app = Flask(__name__)
 
 @app.route('/')
@@ -99,6 +100,17 @@ def catalog():
 def result():
     result = request.form
     return render_template("result.html",result = result)
+
+@app.route('/check',methods = ['POST', 'GET'])
+def check():
+    if request.method == 'POST':
+        n = request.form.get("Name")
+        c = request.form.get("Password")
+        print(n)
+        print(c)
+        if(n == user and c == passw):
+            return render_template("addProgram.html")
+    return render_template("check.html")
 
 @app.route("/api/data")
 def get_data():
